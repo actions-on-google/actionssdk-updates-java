@@ -1,17 +1,13 @@
 # Actions on Google: Updates API sample using Java and Cloud Firestore for Firebase
 
-This sample shows an app that gives tips about developing apps for the Google Assistant using Actions on Google.
+This sample shows an Action that gives tips about developing Actions for the Google Assistant using Actions on Google.
 
-## Setup Instructions
+### Setup Instructions
 
-### Action configuration
-1. Use the Actions on Google Console to add a new project with a name of your choosing and click Create Project.
-1. Scroll down and click Actions SDK.
-1. Install the gactions CLI if you haven't already.
-1. Deploy the fulfillment webhook as described in the Webhook section of this README.
-1. Modify the action.json file included in the project, replacing the placeholder fulfillment URL with the URL to your fulfillment.
-1. Run the command, adding in your project_id gactions update --action_package action.json --project <YOUR_PROJECT_ID>.
-1. Go back to the Actions on Google console and select the project that you have created for this sample.
+#### Action Configuration
+1. From the [Actions on Google Console](https://console.actions.google.com/), add a new project (this will become your *Project ID*) > **Create Project**.
+1. Scroll down and click **Actions SDK**.
+1. [Install the gactions CLI](https://developers.google.com/actions/tools/gactions-cli) if you haven't already.
 
 #### Enable the Actions API
 1. Visit the [Google Cloud console](https://console.cloud.google.com/) for the project used in the [Actions console](https://console.actions.google.com).
@@ -38,36 +34,43 @@ This sample shows an app that gives tips about developing apps for the Google As
 1. Go to the [Actions on Google console](https://console.actions.google.com).
 1. Follow the *Console Setup* instructions in the [Daily Updates](https://developers.google.com/actions/assistant/updates/daily) and the [Push Notifications](https://developers.google.com/actions/assistant/updates/notifications) documentation to enable daily updates and push notifications.
 
-### Webhook
-The sample includes entry points for both and Google App Engine.
+#### App Engine Deployment & Webhook Configuration
+When a new project is created using the Actions Console, it also creates a Google Cloud project in the background.
 
-#### Build for Google Cloud Platform
-    1. Instructions for [Google Cloud App Engine Standard Environment](https://cloud.google.com/appengine/docs/standard/java/)
-    1. Use gcloud CLI to set the project to the name of your Actions project. Use 'gcloud init' to initialize and set your Google cloud project to the name of the Actions project.
-    1. Deploy to [App Engine using Gradle](https://cloud.google.com/appengine/docs/flexible/java/using-gradle) by running the following command: `gradle appengineDeploy`. You can do this directly from
-    IntelliJ by opening the Gradle tray and running the appEngineDeploy task. This will start the process to deploy the fulfillment code to Google Cloud App Engine.
+1. Download & install the [Google Cloud SDK](https://cloud.google.com/sdk/docs/)
+1. Configure the gcloud CLI and set your Google Cloud project to the name of your Actions on Google Project ID, which you can find from the [Actions on Google console](https://console.actions.google.com/) under Settings ⚙
+   + `gcloud init`
+   + `gcloud auth application-default login`
+   + `gcloud components install app-engine-java`
+   + `gcloud components update`
+1. Deploy to [App Engine using Gradle](https://cloud.google.com/appengine/docs/flexible/java/using-gradle):
+   + `gradle appengineDeploy` OR
+   +  From within IntelliJ, open the Gradle tray and run the appEngineDeploy task.
+1. Modify the `action.json` file included in the project, replacing the placeholder fulfillment URL with the URL to your fulfillment.
+1. Run the command, adding in your project_id `gactions update --action_package action.json --project <YOUR_PROJECT_ID>`.
 
-### Test on the Actions on Google simulator
-1. Type `Talk to my test app` in the simulator, or say `OK Google, talk to my test app` to any Actions on Google enabled device signed into your developer account.
+### Testing this Sample
+1. In the [Actions on Google console](https://console.actions.google.com), select the project that you have created for this sample.
+1. On the left navigation menu under **TEST**, click on **Simulator**.
+1. Type `Talk to my test app` in the simulator, or say `OK Google, talk to my test app` to Google Assistant on a mobile device associated with your Action's account.
 1. To test daily updates, choose a category. After the tip, the app will show a suggestion chip to subscribe for daily updates. Once a user is subscribed, they will receive update notifications daily for the time they specified.
 1. To test push notifications, choose to hear the most recent tip. After the tip, the app will show
 a suggestion chip to subscribe for push notifications. To send a push notification to all subscribed users, type "send notification" at any point during the conversation.
 
 For more detailed information on deployment, see the [documentation](https://developers.google.com/actions/dialogflow/deploy-fulfillment).
 
-## References and How to report bugs
-* Actions on Google documentation: [https://developers.google.com/actions/](https://developers.google.com/actions/).
-* If you find any issues, please open a bug here on GitHub.
-* Questions are answered on [StackOverflow](https://stackoverflow.com/questions/tagged/actions-on-google).
+### References & Issues
++ Questions? Go to [StackOverflow](https://stackoverflow.com/questions/tagged/actions-on-google), [Actions on Google G+ Developer Community](https://g.co/actionsdev), or [Support](https://developers.google.com/actions/support/).
++ For bugs, please report an issue on Github.
++ For Actions on Google [documentation](https://developers.google.com/actions/).
++ For specifics about [Gradle & the App Engine Plugin](https://cloud.google.com/appengine/docs/flexible/java/using-gradle)
++ For details on deploying [Java apps with App Engine](https://cloud.google.com/appengine/docs/standard/java/quickstart)
 
-## How to make contributions?
+### Make Contributions
 Please read and follow the steps in the [CONTRIBUTING.md](CONTRIBUTING.md).
 
-## License
+### License
 See [LICENSE](LICENSE).
 
-## Terms
+### Terms
 Your use of this sample is subject to, and by using or downloading the sample files you agree to comply with, the [Google APIs Terms of Service](https://developers.google.com/terms/).
-
-## Google+
-Actions on Google Developers Community on Google+ [https://g.co/actionsdev](https://g.co/actionsdev).

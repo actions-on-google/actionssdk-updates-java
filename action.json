@@ -1,83 +1,85 @@
 {
-    "actions": [
-      {
-        "description": "Default Welcome Intent",
-        "name": "MAIN",
-        "fulfillment": {
-          "conversationName": "welcome"
-        },
-        "intent": {
-          "name": "actions.intent.MAIN"
-        }
+  "actions": [
+    {
+      "description": "Default Welcome Intent",
+      "name": "MAIN",
+      "fulfillment": {
+        "conversationName": "welcome"
       },
-      {
-        "description": "Tell a tip",
-        "name": "Tell tip",
-        "fulfillment": {
-          "conversationName": "tellTip"
-        },
-        "intent": {
-          "name": "tell.tip",
-          "parameters": [{
+      "intent": {
+        "name": "actions.intent.MAIN"
+      }
+    },
+    {
+      "description": "Tell a tip",
+      "name": "Tell tip",
+      "fulfillment": {
+        "conversationName": "tellTip"
+      },
+      "intent": {
+        "name": "tell.tip",
+        "parameters": [
+          {
             "name": "category",
             "type": "org.schema.type.Text"
-          }],
-          "trigger": {
-            "queryPatterns": [
-              "$org.schema.type.Text:category",
-              "$org.schema.type.Text:category category"
-            ]
           }
-        }
-      },
-      {
-        "description": "Tell the most recent tip",
-        "name": "Tell most recent tip",
-        "fulfillment": {
-          "conversationName": "tellMostRecentTip"
-        },
-        "intent": {
-          "name": "tell.most.recent.tip",
-          "trigger": {
-            "queryPatterns": [
-              "the most recent tip",
-              "the latest tip"
-            ]
-          }
-        }
-      },
-      {
-        "description": "Configure Update Intent",
-        "name": "Configure update",
-        "fulfillment": {
-          "conversationName": "configureUpdate"
-        },
-        "intent": {
-          "name": "actions.intent.CONFIGURE_UPDATES"
+        ],
+        "trigger": {
+          "queryPatterns": [
+            "$org.schema.type.Text:category",
+            "$org.schema.type.Text:category category"
+          ]
         }
       }
-    ],
-    "conversations": {
-      "welcome": {
-        "name": "welcome",
-        "url": "YOUR_ENDPOINT_URL",
-        "fulfillmentApiVersion": 2
+    },
+    {
+      "description": "Tell the most recent tip",
+      "name": "Tell most recent tip",
+      "fulfillment": {
+        "conversationName": "tellMostRecentTip"
       },
-      "tellTip": {
-        "name": "tellTip",
-        "url": "YOUR_ENDPOINT_URL",
-        "fulfillmentApiVersion": 2
+      "intent": {
+        "name": "tell.most.recent.tip",
+        "trigger": {
+          "queryPatterns": [
+            "the most recent tip",
+            "the latest tip"
+          ]
+        }
+      }
+    },
+    {
+      "description": "Configure Update Intent",
+      "name": "Configure update",
+      "fulfillment": {
+        "conversationName": "configureUpdate"
       },
-      "tellLatestTip": {
-        "name": "tellMostRecentTip",
-        "url": "YOUR_ENDPOINT_URL",
-        "fulfillmentApiVersion": 2
-      },
-      "configureUpdate": {
-        "name": "configureUpdate",
-        "url": "YOUR_ENDPOINT_URL",
-        "fulfillmentApiVersion": 2
+      "intent": {
+        "name": "actions.intent.CONFIGURE_UPDATES"
       }
     }
+  ],
+  "conversations": {
+    "welcome": {
+      "name": "welcome",
+      "url": "YOUR_ENDPOINT_URL",
+      "fulfillmentApiVersion": 2
+    },
+    "tellTip": {
+      "name": "tellTip",
+      "url": "YOUR_ENDPOINT_URL",
+      "fulfillmentApiVersion": 2
+    },
+    "tellLatestTip": {
+      "name": "tellMostRecentTip",
+      "url": "YOUR_ENDPOINT_URL",
+      "fulfillmentApiVersion": 2
+    },
+    "configureUpdate": {
+      "name": "configureUpdate",
+      "url": "YOUR_ENDPOINT_URL",
+      "fulfillmentApiVersion": 2
+    }
   }
+}
 

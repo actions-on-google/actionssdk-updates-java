@@ -90,7 +90,9 @@ public class TipService {
     ApiFuture<QuerySnapshot> query = db.collection("tips").get();
     QuerySnapshot querySnapshot = query.get();
     List<String> uniqueCategories =
-        querySnapshot.getDocuments().stream()
+        querySnapshot
+            .getDocuments()
+            .stream()
             .map(currentValue -> currentValue.getString("category"))
             .distinct()
             .collect(Collectors.toList());
