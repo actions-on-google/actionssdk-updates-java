@@ -6,7 +6,7 @@ This sample shows an Action that gives tips about developing Actions for the Goo
 
 #### Action Configuration
 1. From the [Actions on Google Console](https://console.actions.google.com/), add a new project (this will become your *Project ID*) > **Create Project**.
-1. Scroll down > select **Actions SDK** > **OK** > **SKIP**
+1. Scroll down > under **More options** select **Actions SDK** > keep **Use Actions SDK to add Actions** modal open
 1. [Install the gactions CLI](https://developers.google.com/actions/tools/gactions-cli) if you haven't already.
  
 #### Enable the Actions API
@@ -24,7 +24,7 @@ This sample shows an Action that gives tips about developing Actions for the Goo
    
 #### Firestore Database Configuration
 1. From the [Firebase console](https://console.firebase.google.com), find and select your Actions on Google Project ID
-1. From **Settings** ⚙ > **Project settings** > *Service accounts** > **Firebase Admin SDK** > **Java** > **Generate new private key**
+1. From **Settings** ⚙ > **Project settings** > **Service accounts** > **Firebase Admin SDK** > **Java** > **Generate new private key**
 1. Save private key in the `src/main/resources/` and rename the file to `firebase-service-account.json`
 1. In the left navigation menu under **Develop** section > **Database** > **Create database** button > Select **Start in test mode** > **Enable**
 
@@ -39,7 +39,7 @@ When a new project is created using the Actions Console, it also creates a Googl
    + `gcloud components update`
 1. Deploy to [App Engine using Gradle](https://cloud.google.com/appengine/docs/flexible/java/using-gradle):
    + `gradle appengineDeploy` OR
-   +  From within IntelliJ, open the Gradle tray and run the appEngineDeploy task.
+   +  From within IntelliJ, open the Gradle tray and run the appEngineDeploy task
 1. Open the `action.json` file: 
    + In the **conversations object** > replace the placeholder **URL** values with `https://<YOUR_PROJECT_ID>.appspot.com`
 1. In terminal, run `gactions update --action_package action.json --project <YOUR_PROJECT_ID>`
@@ -47,11 +47,11 @@ When a new project is created using the Actions Console, it also creates a Googl
 #### Configure Daily Updates and Notifications
 1. From the [Actions on Google console](https://console.actions.google.com) > under **Build** > **Actions**
 1. To setup Daily Updates:
-    + Select the `tell_tip` intent > under **User engagement** > **Enable** `Would you like to offer daily updates to users?` > add a title `Daily Advice Alert` > **Save**
-    + Select the `tell_most_recent_tip` intent > under **User engagement** > **Enable** `Would you like to send push notifications? If yes, user permission will be needed` > add a title `Most Recent Tip Alert` > **Save**
+    + Select the `Tell a tip` intent > under **User engagement** > **Enable** `Would you like to offer daily updates to users?` > add a title `Daily Advice Alert` > **Save**
+    + Select the `Tell the most recent tip` intent > under **User engagement** > **Enable** `Would you like to send push notifications? If yes, user permission will be needed` > add a title `Most Recent Tip Alert` > **Save**
 
 #### Testing this Sample
-1. In the Actions on Google console > from the left navigation menu under **Test**  > **Simulator**.
+1. In the Actions on Google console > from the left navigation menu under **Test** > **Simulator**.
 1. Type `Talk to my test app` in the simulator, or say `OK Google, talk to my test app` to Google Assistant on a mobile device associated with your Action's account.
 1. To test daily updates, choose a category. After the tip, the app will show a suggestion chip to subscribe for daily updates. Once a user is subscribed, they will receive update notifications daily for the time they specified.
 1. To test push notifications, choose to hear the most recent tip. After the tip, the app will show
@@ -64,6 +64,7 @@ When a new project is created using the Actions Console, it also creates a Googl
 + For specifics about [Gradle & the App Engine Plugin](https://cloud.google.com/appengine/docs/flexible/java/using-gradle)
 + For details on deploying [Java apps with App Engine](https://cloud.google.com/appengine/docs/standard/java/quickstart)
 + Read more info about [gactions CLI](https://developers.google.com/actions/tools/gactions-cli).
++ For getting started with [Actions SDK Guide](https://developers.google.com/actions/sdk/).
 
 ### Make Contributions
 Please read and follow the steps in the [CONTRIBUTING.md](CONTRIBUTING.md).
