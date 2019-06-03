@@ -70,14 +70,21 @@ public class NotificationsApp extends ActionsSdkApp {
   public ActionResponse welcome(ActionRequest request)
       throws ExecutionException, InterruptedException {
     ResponseBuilder responseBuilder = getResponseBuilder(request);
-    responseBuilder.add(prompts.getString("welcome"));
 
-    // Get a list of all data categories from the database
-    List<String> uniqueCategories = tipService.getCategories();
-    uniqueCategories.add(prompts.getString("latestTipSuggestion"));
-    uniqueCategories = Lists.reverse(uniqueCategories);
-    responseBuilder.addSuggestions(uniqueCategories.toArray(new String[0]));
+    if (request.hasCapability(Capability.SCREEN_OUTPUT.getValue())) {
+      responseBuilder.add(prompts.getString("welcome"));
 
+      // Get a list of all data categories from the database
+      List<String> uniqueCategories = tipService.getCategories();
+      uniqueCategories.add(prompts.getString("latestTipSuggestion"));
+      uniqueCategories = Lists.reverse(uniqueCategories);
+      responseBuilder.addSuggestions(uniqueCategories.toArray(new String[0]));
+    } else {
+      // User engagement features aren't currently supported on speaker-only devices
+      // See docs: https://developers.google.com/actions/assistant/updates/overview
+      responseBuilder.add(prompts.getString("welcomeSpeakerOnly"));
+      responseBuilder.endConversation();
+    }
     return responseBuilder.build();
   }
 
@@ -128,21 +135,15 @@ public class NotificationsApp extends ActionsSdkApp {
     // Send data to the user
     ResponseBuilder responseBuilder = getResponseBuilder(request);
     responseBuilder.add(tip.getTip());
-    // Display data in a card for devices with screen
-    if (request.hasCapability(Capability.SCREEN_OUTPUT.getValue())) {
-      responseBuilder
-          .add(
-              new BasicCard()
-                  .setFormattedText(tip.getTip())
-                  .setButtons(
-                      Arrays.asList(
-                          new Button()
+    // Display data in a card
+    responseBuilder
+        .add(new BasicCard()
+              .setFormattedText(tip.getTip())
+              .setButtons(Arrays.asList(new Button()
                               .setTitle(prompts.getString("buttonTitle"))
                               .setOpenUrlAction(new OpenUrlAction().setUrl(tip.getUrl())))))
-          .addSuggestions(new String[] {prompts.getString("dailyUpdatesSuggestion")});
-    } else {
-      responseBuilder.endConversation();
-    }
+        .addSuggestions(new String[] {prompts.getString("dailyUpdatesSuggestion")});
+
     return responseBuilder.build();
   }
 
@@ -154,21 +155,15 @@ public class NotificationsApp extends ActionsSdkApp {
     // Send data to the user
     ResponseBuilder responseBuilder = getResponseBuilder(request);
     responseBuilder.add(tip.getTip());
-    // Display data in a card for devices with screen
-    if (request.hasCapability(Capability.SCREEN_OUTPUT.getValue())) {
-      responseBuilder
-          .add(
-              new BasicCard()
-                  .setFormattedText(tip.getTip())
-                  .setButtons(
-                      Arrays.asList(
-                          new Button()
+    // Display data in a card for devices
+    responseBuilder
+        .add(new BasicCard()
+              .setFormattedText(tip.getTip())
+              .setButtons(Arrays.asList(new Button()
                               .setTitle(prompts.getString("buttonTitle"))
                               .setOpenUrlAction(new OpenUrlAction().setUrl(tip.getUrl())))))
-          .addSuggestions(new String[] {prompts.getString("notificationsSuggestion")});
-    } else {
-      responseBuilder.endConversation();
-    }
+        .addSuggestions(new String[] {prompts.getString("notificationsSuggestion")});
+
     return responseBuilder.build();
   }
 
@@ -208,7 +203,6 @@ public class NotificationsApp extends ActionsSdkApp {
     // Ask for the user's permission to send daily updates
     String category = (String) request.getParameter("category");
     ResponseBuilder responseBuilder = getResponseBuilder(request);
-    responseBuilder.add(" ");
     responseBuilder.add(
         new RegisterUpdate()
             .setIntent("tell.tip")
