@@ -71,7 +71,17 @@ public class NotificationsApp extends ActionsSdkApp {
       throws ExecutionException, InterruptedException {
     ResponseBuilder responseBuilder = getResponseBuilder(request);
 
-    if (request.hasCapability(Capability.SCREEN_OUTPUT.getValue())) {
+    if (!request.hasCapability(Capability.SCREEN_OUTPUT.getValue())) {
+      // User engagement features aren't currently supported on speaker-only devices
+      // See docs: https://developers.google.com/actions/assistant/updates/overview
+      responseBuilder.add(prompts.getString("welcomeSpeakerOnly"));
+      responseBuilder.endConversation();
+    } else if (!request.getUser().getUserVerificationStatus().equals("VERIFIED")) {
+      // User engagement features aren't currently for non-verified users
+      // See docs: https://developers.google.com/actions/assistant/guest-users
+      responseBuilder.add(prompts.getString("welcomeVerifiedOnly"));
+      responseBuilder.endConversation();
+    } else {
       responseBuilder.add(prompts.getString("welcome"));
 
       // Get a list of all data categories from the database
@@ -79,11 +89,6 @@ public class NotificationsApp extends ActionsSdkApp {
       uniqueCategories.add(prompts.getString("latestTipSuggestion"));
       uniqueCategories = Lists.reverse(uniqueCategories);
       responseBuilder.addSuggestions(uniqueCategories.toArray(new String[0]));
-    } else {
-      // User engagement features aren't currently supported on speaker-only devices
-      // See docs: https://developers.google.com/actions/assistant/updates/overview
-      responseBuilder.add(prompts.getString("welcomeSpeakerOnly"));
-      responseBuilder.endConversation();
     }
     return responseBuilder.build();
   }
