@@ -17,7 +17,7 @@ Google Cloud [App Engine](https://cloud.google.com/appengine/docs/standard/java/
 ### Configuration
 
 #### Action Console
-1. From the [Actions on Google Console](https://console.actions.google.com/), add a new project (this will become your *Project ID*) > **Create Project**.
+1. From the [Actions on Google Console](https://console.actions.google.com/), New project (this will become your *Project ID*) > **Create project**.
 1. Scroll down > under **More options** select **Actions SDK** > keep **Use Actions SDK to add Actions** modal open
 1. [Install the gactions CLI](https://developers.google.com/actions/tools/gactions-cli) if you haven't already.
 
@@ -46,17 +46,15 @@ Google Cloud [App Engine](https://cloud.google.com/appengine/docs/standard/java/
 1. Open the `action.json` file:
    + In the **conversations object** > replace the placeholder **URL** values with `https://<YOUR_PROJECT_ID>.appspot.com`
 1. In terminal, run `gactions update --action_package action.json --project <YOUR_PROJECT_ID>`
-1. Back in the [Actions console](https://console.actions.google.com), from the **Use Actions SDK to add Actions** window > select **OK**.
-1. From the left menu under **Test** > select **Simulator** to open the Actions on Google simulator then say or type `Talk to my test app`.
 
 #### Configure Daily Updates and Notifications
-1. From the [Actions on Google console](https://console.actions.google.com) > select `OK` from the modal
+1. Back in the [Actions console](https://console.actions.google.com), from the **Use Actions SDK to add Actions** window > select **OK** from the modal.
 1. Under **Build** > **Actions**
     + Select the `Tell a tip` intent > under **User engagement** > **Enable** `Would you like to offer daily updates to users?` > add a title `advice Alert` > **Save**
     + Select the `Tell the most recent tip` intent > under **User engagement** > **Enable** `Would you like to send push notifications? If yes, user permission will be needed` > add a title `Latest Info Alert` > **Save**
 
 #### Running this Sample
-1. In the Actions on Google console > from the left navigation menu under **Test** > **Simulator**.
+1. In the [Actions on Google console](https://console.actions.google.com) > from the top menu click **Test**.
 1. Type `Talk to my test app` in the simulator, or say `OK Google, talk to my test app` to Google Assistant on a mobile device associated with your Action's account.
 1. To test daily updates, choose a category. After the tip, the app will show a suggestion chip to subscribe for daily updates. Once a user is subscribed, they will receive update notifications daily for the time they specified.
 1. To test push notifications, choose to hear the most recent tip. After the tip, the app will show
